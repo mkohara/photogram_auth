@@ -64,4 +64,6 @@ class LikesController < ApplicationController
       redirect_to(:back, :notice => "Like deleted.")
     end
   end
+
+
 end

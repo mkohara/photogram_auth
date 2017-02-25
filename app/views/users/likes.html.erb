@@ -1,0 +1,9 @@
+<div class="row">
+  <h3>My Likes</h3>
+  <ul>
+    <% @likes.each do |like| %>
+      <img src="<%= like.photo.image %>" alt="">
+      <% end %>
+  </ul>
+
+</div>
