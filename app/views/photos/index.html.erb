@@ -5,9 +5,9 @@
       <i class="fa fa-plus"></i></a>
   </h1>
 </div>
-
+<div class= "container">
 <div class="row">
-  <div class="col-md-12">
+  <div class=" col-md-8 col-md-offset-2">
     <%= @photos.each do |photo|  %>
       <div class="panel panel-default ">
         <div class="panel-heading">
@@ -22,9 +22,21 @@
             <a href="/users/<%=photo.user_id%>">
               <img src="<%= photo.image %>" alt="" class="img-responsive">
             </a>
+            <p>
+              <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
+              <%= photo.caption %>
+            </p>
+
+            <% if current_user.id == photo.user_id %>
+            <a href="/photos/<%= photo.id %>/edit" class= "btn btn-warning">Edit</a>
+            <a href="/delete_photo/<%= photo.id %>" class="btn btn-danger">Delete</a>
+            <% end %>
+
+</div>
+</div>
+<% end %>
 
           </div>
       </div>
     </div>
   </div>
-  <% end %>
