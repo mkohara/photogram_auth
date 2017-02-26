@@ -1,6 +1,5 @@
 <div class="page-header">
-  <h1>
-    Photos
+
     <a href="/photos/new" class="btn btn-default btn-block">
       <i class="fa fa-plus"></i></a>
   </h1>
@@ -26,6 +25,21 @@
               <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
               <%= photo.caption %>
             </p>
+
+            <ul class="media-list">
+              <% photo.comments.each do |comment| %>
+                <li class="media">
+                  <div class="media-body">
+                    <h6 class= "media-heading">
+                      <a href="/users/<%= comment.user_id %>"><%= comment.user.username %></a>
+                      <small>
+                      <%= time_ago_in_words(comment.updated_at) %></small>
+                    </h6>
+                    <%= comment.body %>
+                  </div>
+                </li>
+                <% end %>
+            </ul>
 
             <% if current_user.id == photo.user_id %>
             <a href="/photos/<%= photo.id %>/edit" class= "btn btn-warning">Edit</a>
