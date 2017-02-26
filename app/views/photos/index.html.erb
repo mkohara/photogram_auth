@@ -25,7 +25,36 @@
               <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
               <%= photo.caption %>
             </p>
+            <!-- if current user likes photo, show delete button -->
+            <% if photo.likes.detect { |l| l.user_id == current_user.id} %>
+            <p>
+              <a href="/delete_like/<%= photo.id %>" class="btn btn-link">
+              <i class= "fa fa-heart"></i></a>
+              <% photo.likes.each do |like| %>
+              <a href="/users/<%= like.user.id %>"<%= like.user.username %>></a>
+              <% end %>
+              liked this
 
+            </p>
+            <% else %>
+            <p>
+            <form class="" action="/create_like" method="post">
+              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+              <input type="hidden" name="photo_id" value="<%= photo.id %>">
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <button class="btn btn-link">
+              <i class="fa fa-heart-o"></i></button>
+              <% photo.likes.each do |like| %>
+              <a href="/users/<%= like.user.id %>"><%= like.user.username %></a>
+              <% end %>
+              liked this
+            </form>
+          </p>
+          <% end %>
+
+  
+
+          </form>
             <ul class="media-list">
               <% photo.comments.each do |comment| %>
                 <li class="media">
