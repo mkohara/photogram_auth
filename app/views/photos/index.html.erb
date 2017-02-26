@@ -25,6 +25,20 @@
               <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
               <%= photo.caption %>
             </p>
+            <ul class="media-list">
+              <% photo.comments.each do |comment| %>
+                <li class="media">
+                <div class="media-body">
+                  <h6 class="media-heading">
+                    <a href="/users/<%= comment.user_id %>"><%= comment.user.username %></a>
+                    <small>
+                    <%= time_ago_in_words(comment.updated_at) %></small>
+                  </h6>
+                  <%= comment.body %>
+
+                </div></li>
+              <% end %>
+            </ul>
             <!-- if current user likes photo, show delete button -->
             <% if photo.likes.detect { |l| l.user_id == current_user.id} %>
             <p>
@@ -38,7 +52,7 @@
             </p>
             <% else %>
             <p>
-            <form class="" action="/create_like" method="post">
+            <form action="/create_like" method="post">
               <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
               <input type="hidden" name="photo_id" value="<%= photo.id %>">
               <input type="hidden" name="user_id" value="<%= current_user.id %>">
@@ -79,7 +93,9 @@
                   <input type="text" id="body" name="body" class="form-control" placeholder="Add a comment..." required>
                   <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">
-                  <i class="fa fa-commenting-o"></i></button></span>
+                  <i class="fa fa-commenting-o"></i>
+                </button>
+              </span>
 
                 </div>
 

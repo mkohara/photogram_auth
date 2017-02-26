@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
 
     @comment.user_id = params[:user_id]
     @comment.photo_id = params[:photo_id]
+    @comment.body = params[:body]
 
     save_status = @comment.save
 
